@@ -1,19 +1,22 @@
 import 'package:firechats/providers/router_provider.dart';
+import 'package:firechats/providers/user_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutterfire_ui/auth.dart';
 
-class LoginPage extends ConsumerWidget {
-  const LoginPage({
-    Key? key,
-  }) : super(key: key);
+class LoginPage extends ConsumerStatefulWidget {
+  const LoginPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final auth = ref.listen(userProvider, (previous, next) {
-      debugPrint('userChange: ${next}');
-      if (previous == null && next != null) {
-        // ref.watch(routerProvider).go('/');
+  ConsumerState<ConsumerStatefulWidget> createState() => _LoginPageState();
+}
+
+class _LoginPageState extends ConsumerState<LoginPage> {
+  @override
+  Widget build(BuildContext context) {
+    ref.listen(userProvider, (previous, next) {
+      if (next != null) {
+        ref.watch(routerProvider).go('/');
       }
     });
 

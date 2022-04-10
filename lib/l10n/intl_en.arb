@@ -1,1 +1,6 @@
-{}
+{
+  "logout": "Logout",
+  "logoutIntro": "Are you sure to logout?",
+  "logoutConfirm": "Logout",
+  "logoutCancel": "Cancel"
+}

@@ -2,6 +2,9 @@ import 'package:firechats/pages/chats/chats_page.dart';
 import 'package:firechats/pages/contacts/contacts_page.dart';
 import 'package:firechats/pages/profiles/profiles_page.dart';
 import 'package:firechats/providers/router_provider.dart';
+import 'package:firechats/providers/user_provider.dart';
+import 'package:firechats/widgets/error.dart';
+import 'package:firechats/widgets/loading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -32,11 +35,19 @@ class _AppScaffoldState extends ConsumerState<AppScaffold> {
   @override
   Widget build(BuildContext context) {
     final pageIndex = currentTab.index;
+    final asyncUser = ref.watch(userProvider);
 
-    return Scaffold(
-      body: pages[pageIndex],
-      bottomNavigationBar: BottomNavigator(
-        current: currentTab,
+    return asyncUser.when(
+      data: (_) => Scaffold(
+        body: pages[pageIndex],
+        bottomNavigationBar: BottomNavigator(
+          current: currentTab,
+        ),
+      ),
+      loading: () => const Loading(),
+      error: (_, __) => LoadingErrorPage(
+        error: _,
+        stackTrace: __,
       ),
     );
   }

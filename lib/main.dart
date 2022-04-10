@@ -28,6 +28,7 @@ class MyApp extends ConsumerWidget {
     return MaterialApp.router(
       routeInformationParser: router.routeInformationParser,
       routerDelegate: router.routerDelegate,
+      debugShowCheckedModeBanner: false,
       title: 'FireChats',
       theme: ThemeData(
         primarySwatch: Colors.blue,

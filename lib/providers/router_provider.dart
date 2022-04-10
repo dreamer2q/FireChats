@@ -5,16 +5,8 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:riverpod/riverpod.dart';
 
-final authProvider = Provider((ref) {
-  return FirebaseAuth.instance;
-});
-
-final userProvider = StreamProvider((ref) {
-  return ref.watch(authProvider).userChanges();
-});
-
 final routerProvider = Provider((ref) {
-  final auth = ref.watch(authProvider);
+  final auth = FirebaseAuth.instance;
 
   const scaffoldKey = ValueKey('appScaffold');
   final router = GoRouter(
